@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body, #map { height: 100%; margin: 0; padding: 0;}
+      #map-source { height: 100%; margin: 0; padding: 0; width: 50%; position: absolute; left: 0;}
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6Hokqs3X0tWvlbUV2EFTIa80bh_KsiW0&libraries=visualization,geometry,places">
+    </script>
+    <script type="text/javascript" src="solutions/markers.js"></script>
+    <script type="text/javascript" src="solutions/route.js"></script>
+    <script type="text/javascript" src="solutions/places.js"></script>
+    <script type="text/javascript">
+      function initialize() {
+        var directionsDisplay = new google.maps.DirectionsRenderer({preserveViewport:true,suppressMarkers:true});
+        var directionsService = new google.maps.DirectionsService();
+        var heatmapLayer = new google.maps.visualization.HeatmapLayer();
+
+        var mapOptions = {
+          center: { lat: -34.397, lng: 150.644},
+          zoom: 8
+        };
+        var source = new google.maps.Map(document.getElementById('map'), mapOptions);
+        directionsDisplay.setMap(source);
+        heatmapLayer.setMap(source);
+
+        var placesService = new google.maps.places.PlacesService(source);
+
+        var userwps = new google.maps.MVCArray();
+        google.maps.event.addListener(source, 'click', function(e) { userwps.push(e.latLng) })
+
+        //Don't change anything in this - this is the harness that will use your code
+        //Reference the Google Maps API documentation, found here: https://developers.google.com/maps/documentation/javascript/reference
+        //Additional sources are found in each task for what you need to do.
+
+        //We're building an application to show hotspots for restaurants along a path
+        //We need to have 3 parts:
+        //  1) a way to add and display waypoints along the path (task 1)
+        //  2) a way to actually detect and determine the path (task 2)
+        //  3) a visualization of where the restaurants are the densest (task 3)
+
+        //We use a lot of the MVC functionality in Google Maps.
+        //Familiarize yourself with MVCArray: https://developers.google.com/maps/documentation/javascript/reference#MVCArray
+        //You're essentially going to use this to "watch" what the user is doing - as userwps is altered, you'll get events
+        //For instance, let's say we want to watch for a user adding a point (the only case you have to worry about)
+        //Then, call google.maps.event.addListener(userwps, "insert_at", function (index) {your code here})
+        //The function that you provide will be called whenever the user adds a marker to the map
+
+        // MARKERS TASK
+        add_markers(source, userwps);
+
+        // DIRECTIONS TASK
+        find_route(userwps, directionsService, directionsDisplay);
+
+        // PLACES TASK
+        search_places(userwps, placesService, heatmapLayer);
+
+
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+<div id="map"></div>
+  </body>
+</html>
