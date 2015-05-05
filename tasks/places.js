@@ -1,7 +1,7 @@
 //Places search and display task.
 
 //Task: 
-//Search for restaurants around a route and display a heatmap of them, updated as the path is generated.
+//Search for restaurants around a route, defined by user_waypoints, and display a heatmap of them, updated as the path is generated.
 
 //Implementation:
 //You need to make a request to Google's places service, documented here: https://developers.google.com/maps/documentation/javascript/places
@@ -11,7 +11,5 @@
 
 //The route should be updated whenever the user adds a new destination. Use the MVCArray event 'insert_at' to update
 
-function search_places(userwps, placesService, heatmapLayer) {
-  google.maps.event.addListener(userwps, 'insert_at', function (p) {
-  })
+function search_places(user_waypoints, placesService, heatmapLayer) {
 }

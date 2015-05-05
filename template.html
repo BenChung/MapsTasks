@@ -8,6 +8,7 @@
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6Hokqs3X0tWvlbUV2EFTIa80bh_KsiW0&libraries=visualization,geometry,places">
     </script>
+    <script type="text/javascript" src="tasks/options.js"></script>
     <script type="text/javascript" src="tasks/markers.js"></script>
     <script type="text/javascript" src="tasks/route.js"></script>
     <script type="text/javascript" src="tasks/places.js"></script>
@@ -17,10 +18,7 @@
         var directionsService = new google.maps.DirectionsService();
         var heatmapLayer = new google.maps.visualization.HeatmapLayer();
 
-        var mapOptions = {
-          center: { lat: -34.397, lng: 150.644},
-          zoom: 8
-        };
+        var mapOptions = get_options();
         var source = new google.maps.Map(document.getElementById('map'), mapOptions);
         directionsDisplay.setMap(source);
         heatmapLayer.setMap(source);
