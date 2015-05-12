@@ -11,5 +11,11 @@
 
 //The route should be updated whenever the user adds a new destination. Use the MVCArray event 'insert_at' to update
 
-function search_places(user_waypoints, placesService, heatmapLayer) {
+//user_waypoints : MVCArray of LatLon https://developers.google.com/maps/documentation/javascript/reference#MVCArray
+//placesService : PlacesService https://developers.google.com/maps/documentation/javascript/reference#PlacesService
+//heatmap_layer : HeatmapLayer https://developers.google.com/maps/documentation/javascript/reference#HeatmapLayer
+function search_places(user_waypoints, places_service, heatmap_layer) {
+	google.maps.event.addListener(user_waypoints, "insert_at", function (index) {
+		
+	})
 }

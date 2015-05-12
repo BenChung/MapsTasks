@@ -7,5 +7,7 @@
 
 function get_options() {
 	return {
+		center: {lat:0, lng: 0},
+		zoom:1
 	};
 }

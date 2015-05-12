@@ -25,8 +25,8 @@
 
         var placesService = new google.maps.places.PlacesService(source);
 
-        var userwps = new google.maps.MVCArray();
-        google.maps.event.addListener(source, 'click', function(e) { userwps.push(e.latLng) })
+        var user_waypoints = new google.maps.MVCArray();
+        google.maps.event.addListener(source, 'click', function(e) { user_waypoints.push(e.latLng) })
 
         //Don't change anything in this - this is the harness that will use your code
         //Reference the Google Maps API documentation, found here: https://developers.google.com/maps/documentation/javascript/reference
@@ -34,25 +34,28 @@
 
         //We're building an application to show hotspots for restaurants along a path
         //We need to have 3 parts:
-        //  1) a way to add and display waypoints along the path (task 1)
-        //  2) a way to actually detect and determine the path (task 2)
-        //  3) a visualization of where the restaurants are the densest (task 3)
+        //  1) Basic map configuration (options.js)
+        //  2) a way to add and display waypoints along the path (task 1, markers.js)
+        //  3) a way to actually detect and determine the path (task 2, places.js)
+        //  4) a visualization of where the restaurants are the densest (task 3, route.js)
+
+        //Note that the google maps API lives within the google.maps namespace, so a map would be referenced by google.maps.Map, for instance.
 
         //We use a lot of the MVC functionality in Google Maps.
         //Familiarize yourself with MVCArray: https://developers.google.com/maps/documentation/javascript/reference#MVCArray
-        //You're essentially going to use this to "watch" what the user is doing - as userwps is altered, you'll get events
+        //You're essentially going to use this to "watch" what the user is doing - as user_waypoints is altered, you'll get events
         //For instance, let's say we want to watch for a user adding a point (the only case you have to worry about)
-        //Then, call google.maps.event.addListener(userwps, "insert_at", function (index) {your code here})
+        //Then, call google.maps.event.addListener(user_waypoints, "insert_at", function (index) {your code here})
         //The function that you provide will be called whenever the user adds a marker to the map
 
         // MARKERS TASK
-        add_markers(source, userwps);
+        add_markers(source, user_waypoints);
 
         // DIRECTIONS TASK
-        find_route(userwps, directionsService, directionsDisplay);
+        find_route(user_waypoints, directionsService, directionsDisplay);
 
         // PLACES TASK
-        search_places(userwps, placesService, heatmapLayer);
+        search_places(user_waypoints, placesService, heatmapLayer);
 
 
       }
